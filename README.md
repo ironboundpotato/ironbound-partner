@@ -55,13 +55,3 @@ Example commands:
 - "Switch to T.A.R.S. mode"
 
 ---
-
-**That’s it.**  
-
-Paste the whole block above into your README.md file, commit it, and push.
-
-Once it’s up, reply with **“README done”** and I’ll give you the updated `partner.py` + the next files so you can start testing the actual functions right away.
-
-We’re moving one clean step at a time today. No rush.
-
-Go ahead and update the README. Let me know when it’s committed.
