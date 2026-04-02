@@ -1,0 +1,7 @@
+partner:
+  name: "Ironbound"
+  voice: false
+  audit_log: "logs/audit.log"
+
+governance:
+  mode: "stub"
