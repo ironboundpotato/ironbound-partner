@@ -1,21 +1,70 @@
-MIT License
+GILBERT ATTRIBUTION LICENSE v1.1
 
-Copyright (c) 2026 ironboundpotato
+Copyright (c) 2026 Kevin Gilbert
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person or organization obtaining a copy
+of this software, framework, documentation, prompts, methods, or associated materials
+(the "Work"), to use, copy, modify, adapt, merge, publish, distribute, sublicense, and/or
+sell copies of the Work, and to permit others to whom the Work is furnished to do so,
+subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+1. REQUIRED ATTRIBUTION
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+Any use, copy, modification, adaptation, distribution, public presentation, commercial use,
+or derivative work based on the Work must include clear and visible attribution to Kevin Gilbert.
+
+At minimum, one of the following notices must be included in a reasonable, user-visible, or
+context-appropriate location, such as source files, repository notices, documentation, about
+pages, credits, product materials, or published works:
+
+"Based on frameworks developed by Kevin Gilbert (2026)."
+
+If the Work has been modified, adapted, or extended, the following notice may be used instead:
+
+"Derived from work developed by Kevin Gilbert (2026)."
+
+2. LICENSE RETENTION
+
+A copy of this license must be included with any substantial portion of the Work and with any
+distribution of the Work or derivative works.
+
+3. MARKING OF CHANGES
+
+If you modify the Work, you must clearly indicate that changes were made. This may be done in
+documentation, commit history, release notes, source comments, or other reasonably visible records.
+
+4. NO IMPLIED ENDORSEMENT
+
+This license does not grant permission to state or imply that Kevin Gilbert endorses, sponsors,
+certifies, or is affiliated with any product, derivative work, service, organization, or use
+of the Work unless separate written permission has been provided.
+
+5. NO TRADEMARK RIGHTS
+
+This license does not grant any rights to use any trademarks, service marks, trade dress, or
+branding of Kevin Gilbert, except as necessary to provide truthful attribution required by this license.
+
+6. SCOPE OF PERMISSION
+
+The permissions granted under this license include personal use, research use, educational use,
+internal organizational use, public distribution, commercial use, and the creation of derivative
+works, provided that the attribution and license conditions above are satisfied.
+
+7. TERMINATION
+
+Any rights granted under this license terminate automatically if you fail to comply with its terms.
+Those rights are reinstated automatically if the violation is cured within 30 days of discovery
+or notice.
+
+8. WARRANTY DISCLAIMER
+
+THE WORK IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHOR OR COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM,
+DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM,
+OUT OF, OR IN CONNECTION WITH THE WORK OR THE USE OR OTHER DEALINGS IN THE WORK.
+
+9. ACCEPTANCE
+
+By using, copying, modifying, distributing, sublicensing, or commercially exploiting the Work,
+you agree to the terms of this license.
