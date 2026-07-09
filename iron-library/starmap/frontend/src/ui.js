@@ -31,6 +31,7 @@ export function createUI() {
       <div id="centerTitle">
         <div id="viewLabel">IRON LIBRARY OBSERVATORY</div>
         <div id="viewMeta">Semantic Observatory</div>
+        <div id="breadcrumbTrail"></div>
       </div>
 
       <aside id="rightPanel">
@@ -248,6 +249,40 @@ export function injectStyles() {
       font-size:10px;
     }
 
+    #breadcrumbTrail{
+      display:flex;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:5px;
+      margin-top:9px;
+      max-width:520px;
+    }
+
+    .breadcrumbButton{
+      background:rgba(255,255,255,.045);
+      color:#d7e6f8;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:5px;
+      padding:4px 7px;
+      font-size:10px;
+      cursor:pointer;
+      max-width:155px;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+
+    .breadcrumbButton:hover{
+      background:rgba(142,230,255,.14);
+      border-color:rgba(142,230,255,.35);
+      color:#ffffff;
+    }
+
+    .breadcrumbSeparator{
+      color:#7fa9c8;
+      font-size:11px;
+    }
+
     #rightPanel{
       position:fixed;
       top:10px;
@@ -304,12 +339,24 @@ export function injectStyles() {
       margin-bottom:7px;
     }
 
-    .relatedItem{
+    .relatedButton{
+      width:100%;
+      text-align:left;
       color:#cdd6e3;
       font-size:11px;
       line-height:1.25;
-      padding:6px 0;
+      padding:7px 6px;
+      margin:0;
+      background:rgba(255,255,255,.025);
+      border:0;
       border-bottom:1px solid rgba(255,255,255,.055);
+      cursor:pointer;
+      border-radius:4px;
+    }
+
+    .relatedButton:hover{
+      color:#ffffff;
+      background:rgba(142,230,255,.12);
     }
 
     .relatedEmpty{
@@ -322,8 +369,12 @@ export function injectStyles() {
   document.head.appendChild(style);
 }
 
-function readableConnectionId(id) {
-  return String(id || "")
+function getMemoryTitle(memoryId) {
+  if (window.starmapGetMemoryTitle) {
+    return window.starmapGetMemoryTitle(memoryId);
+  }
+
+  return String(memoryId || "")
     .replace(/_/g, " ")
     .replace(/\s+/g, " ")
     .trim()
@@ -348,13 +399,31 @@ function renderRelatedMemories(star) {
   section.innerHTML = `
     <div class="relatedTitle">RELATED MEMORIES</div>
     ${connections
-      .map(
-        (connection) => `
-          <div class="relatedItem">• ${readableConnectionId(connection)}</div>
-        `
-      )
+      .map((connection) => {
+        const title = getMemoryTitle(connection);
+
+        return `
+          <button
+            class="relatedButton"
+            data-memory-id="${connection}"
+            title="${title}"
+          >
+            ↳ ${title}
+          </button>
+        `;
+      })
       .join("")}
   `;
+
+  section.querySelectorAll(".relatedButton").forEach((button) => {
+    button.addEventListener("click", () => {
+      const memoryId = button.getAttribute("data-memory-id");
+
+      if (window.starmapNavigateToMemory) {
+        window.starmapNavigateToMemory(memoryId);
+      }
+    });
+  });
 }
 
 export function updatePanel(star) {

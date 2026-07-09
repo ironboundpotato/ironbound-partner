@@ -8,16 +8,14 @@ import {
 } from "./scene.js";
 import {
   createCamera,
-  createControls,
-  flyToMeshes
+  createControls
 } from "./camera.js";
 import {
   createUI,
   injectStyles,
   updateStats,
   renderProjectList,
-  updateProjectPanel,
-  updatePanel
+  updateProjectPanel
 } from "./ui.js";
 import { loadStars } from "./loader.js";
 import { createStars } from "./stars.js";
@@ -30,6 +28,16 @@ import { focusProject } from "./projectNavigation.js";
 import { createProjectLabels } from "./projectLabels.js";
 import { createBackgroundStars } from "./backgroundStars.js";
 import { createGalaxyClouds } from "./galaxyClouds.js";
+import { createRelatedNavigation } from "./relatedNavigation.js";
+import {
+  initializeBreadcrumbs,
+  addBreadcrumb,
+  resetBreadcrumbs
+} from "./breadcrumbs.js";
+import {
+  expandSemanticNeighborhood,
+  clearSemanticExpansion
+} from "./semanticExpansion.js";
 
 createUI();
 injectStyles();
@@ -77,69 +85,51 @@ function buildProjectList(stars) {
   return Array.from(projects.values()).sort((a, b) => b.count - a.count);
 }
 
+function resetHomeView(starMeshes) {
+  const search = document.getElementById("search");
+
+  if (search) {
+    search.value = "";
+  }
+
+  clearSemanticExpansion(starMeshes);
+
+  setFocus(
+    new THREE.Vector3(0, 0, 0),
+    new THREE.Vector3(0, 0, 1600)
+  );
+
+  resetBreadcrumbs();
+
+  updateStats(`${starMeshes.length} truthful stars · home view`);
+}
+
 function setupHomeReset(starMeshes) {
   window.addEventListener("keydown", (event) => {
     if (event.key.toLowerCase() !== "h") return;
 
-    const search = document.getElementById("search");
-
-    if (search) {
-      search.value = "";
-    }
-
-    starMeshes.forEach((mesh) => {
-      mesh.material.opacity = 1.0;
-      mesh.material.transparent = false;
-      mesh.scale.setScalar(1);
-    });
-
-    setFocus(
-      new THREE.Vector3(0, 0, 0),
-      new THREE.Vector3(0, 0, 1600)
-    );
-
-    updateStats(`${starMeshes.length} truthful stars · home view`);
+    resetHomeView(starMeshes);
   });
 }
 
-function setupMemoryNavigationBridge(starMeshes, constellations) {
-  const meshById = new Map();
+function setupRelatedMemoryBridge(starMeshes, constellations) {
+  const relatedNavigation = createRelatedNavigation(
+    starMeshes,
+    constellations,
+    setFocus
+  );
 
-  starMeshes.forEach((mesh) => {
-    meshById.set(mesh.userData.star.id, mesh);
-  });
-
+  window.starmapGetMemoryTitle = relatedNavigation.getMemoryTitle;
   window.starmapNavigateToMemory = (memoryId) => {
-    const mesh = meshById.get(memoryId);
+    const star = relatedNavigation.navigateToMemory(memoryId);
 
-    if (!mesh) return;
-
-    const star = mesh.userData.star;
-
-    updatePanel(star);
-
-    const targets = flyToMeshes([mesh]);
-
-    if (targets) {
-      setFocus(targets.focusTarget, targets.cameraTarget);
+    if (star) {
+      expandSemanticNeighborhood(star, starMeshes);
+      addBreadcrumb(star);
     }
-
-    highlightSelection(
-      star.id,
-      starMeshes,
-      constellations.lines
-    );
-
-    updateStats(`Focused memory · ${star.project}`);
   };
 
-  window.starmapGetMemoryTitle = (memoryId) => {
-    const mesh = meshById.get(memoryId);
-
-    if (!mesh) return memoryId;
-
-    return mesh.userData.star.title || memoryId;
-  };
+  initializeBreadcrumbs(window.starmapNavigateToMemory);
 }
 
 async function startObservatory() {
@@ -147,7 +137,7 @@ async function startObservatory() {
   const starMeshes = createStars(stars, starGroup);
   const constellations = createConstellations(starMeshes, scene);
 
-  setupMemoryNavigationBridge(starMeshes, constellations);
+  setupRelatedMemoryBridge(starMeshes, constellations);
 
   const projects = buildProjectList(stars);
 
@@ -182,6 +172,9 @@ async function startObservatory() {
         starMeshes,
         constellations.lines
       );
+
+      expandSemanticNeighborhood(selectedStar, starMeshes);
+      addBreadcrumb(selectedStar);
 
       updateStats(`Focused memory · ${selectedStar.project}`);
     }
